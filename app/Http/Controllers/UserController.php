@@ -86,7 +86,6 @@ class UserController extends Controller
     {
         $keyword = $request->search;        
         $users = User::where('name', 'like', "%" . $keyword . "%")->paginate(5);
-        if ($user )
         return view('users.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
     } 
 }

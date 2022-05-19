@@ -31,7 +31,7 @@
             <th>Email</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($users as $user)
+        @forelse ($users as $user)
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $user->name }}</td>
@@ -50,7 +50,11 @@
                 </form>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="4" class="text-center">Tidak ada data</td>
+        </tr>
+        @endforelse
     </table>
     <div class="text-center">
         {!! $users->links() !!}
