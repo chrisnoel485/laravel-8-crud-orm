@@ -15,12 +15,12 @@ class UserController extends Controller
         return view('users.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    public function search(Request $request)
-    {
-        $keyword = $request->search;
-        $users = User::where('name', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('users.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
+    //public function search(Request $request)
+    //{
+    //    $keyword = $request->search;        
+    //    $users = User::where('name', 'like', "%" . $keyword . "%")->paginate(5);
+    //    return view('users.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
+    //}
 
     public function create()
     {
@@ -82,4 +82,37 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'User Berhasil Dihapus');
     }
+    //public function search(Request $request)
+   // {
+    //    $keyword = $request->search;        
+    //    $users = User::where('name', 'like', "%" . $keyword . "%")->paginate(5);
+    //    return view('users.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
+   // }
+    public function search(Request $request){
+        $keyword = $request->search;
+        $title = 'Search Name';
+        
+        $User = new User();
+        
+        $data = User::all();//select* from user
+        
+        // searched value
+        $ketemu = false;// awalnya kosong belum ketemu
+        foreach ($data as $keyword) {//apkah data ini sama dengan data yang di cari
+            if ($keyword->name == $req->input('name')) {
+                    $User = $keyword;
+                    $ketemu = true;
+            break;
+            }
+        }
+       
+        if ($ketemu == false) {
+            Session::flash('success','Nomor Surat '.$keyword->input('name').' tidak ditemukan');
+            return view('users.index', compact('users'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
+        else{
+            return view('users.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
+        }
+    }    
 }
