@@ -99,7 +99,7 @@ class UserController extends Controller
         // searched value
         $ketemu = false;// awalnya kosong belum ketemu
         foreach ($data as $keyword) {//apkah data ini sama dengan data yang di cari
-            if ($keyword->name == $req->input('name')) {
+            if ($keyword->name == $keyword->input('name')) {
                     $User = $keyword;
                     $ketemu = true;
             break;
